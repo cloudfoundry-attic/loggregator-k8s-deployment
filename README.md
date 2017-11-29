@@ -7,7 +7,7 @@ This repo contains the objects required to run loggregator on kubernetes.
 
 - A k8s cluster up and running.
 - `kubectl` installed locally and configured to target your k8s cluster
-- `docker` installed locally and configured target a `dockerd` for running a
+- `docker` installed locally and configured to target a `dockerd` for running a
   certificate generation container.
 
 ### Generate TLS Certs and Keys

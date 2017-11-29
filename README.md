@@ -6,7 +6,7 @@ This repo contains the objects required to run loggregator on kubernetes.
 ### Prerequisites
 
 - A k8s cluster up and running.
-- `kubectl` installed locally and configured to target your k8s cluster
+- `kubectl` installed locally and configured to target your k8s cluster.
 - `docker` installed locally and configured to target a `dockerd` for running a
   certificate generation container.
 
@@ -31,7 +31,7 @@ The following script will apply all the objects to your cluster:
 
 ### Destroying
 
-the following script will delete all the objects from your cluster:
+The following script will delete all the objects from your cluster:
 
 ```bash
 ./destroy.sh

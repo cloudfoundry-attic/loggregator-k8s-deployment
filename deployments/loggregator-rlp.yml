@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: loggregator-rlp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: loggregator-rlp
+    spec:
+      containers:
+      - name: loggregator-rlp
+        image: "loggregator/rlp:latest"
+        env:
+        - name: ROUTER_ADDRS
+          # TODO: this needs all instances of router, not just a service lb
+          value: loggregator-router.default.svc.cluster.local:8082
+        ports:
+        - name: api
+          containerPort: 8082
+        - name: health
+          containerPort: 6061
+        volumeMounts:
+        - name: loggregator-tls-certs
+          mountPath: /srv/rlp/certs
+      - name: loggregator-agent
+        image: "loggregator/agent:latest"
+        env:
+        - name: ROUTER_ADDR
+          value: loggregator-router.default.svc.cluster.local:8082
+        - name: ROUTER_ADDR_WITH_AZ
+          value: loggregator-router.default.svc.cluster.local:8082
+        - name: AGENT_PPROF_PORT
+          value: "6062"
+        - name: AGENT_HEALTH_ENDPOINT_PORT
+          value: "6063"
+        ports:
+        - name: health
+          containerPort: 6063
+        volumeMounts:
+        - name: loggregator-tls-certs
+          mountPath: /srv/agent/certs
+      volumes:
+      - name: loggregator-tls-certs
+        secret:
+          secretName: loggregator-tls-certs

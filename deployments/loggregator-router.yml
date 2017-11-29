@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: loggregator-router
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: loggregator-router
+    spec:
+      containers:
+      - name: loggregator-router
+        image: "loggregator/router:latest"
+        ports:
+        - name: api
+          containerPort: 8082
+        - name: health
+          containerPort: 6061
+        volumeMounts:
+        - name: loggregator-tls-certs
+          mountPath: /srv/router/certs
+      - name: loggregator-agent
+        image: "loggregator/agent:latest"
+        env:
+        - name: ROUTER_ADDR
+          value: localhost:8082
+        - name: ROUTER_ADDR_WITH_AZ
+          value: localhost:8082
+        - name: AGENT_PPROF_PORT
+          value: "6062"
+        - name: AGENT_HEALTH_ENDPOINT_PORT
+          value: "6063"
+        ports:
+        - name: health
+          containerPort: 6063
+        volumeMounts:
+        - name: loggregator-tls-certs
+          mountPath: /srv/agent/certs
+      volumes:
+      - name: loggregator-tls-certs
+        secret:
+          secretName: loggregator-tls-certs

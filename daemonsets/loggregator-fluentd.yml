@@ -1,0 +1,63 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: loggregator-fluentd
+spec:
+  selector:
+    matchLabels:
+      name: loggregator-fluentd
+  template:
+    metadata:
+      labels:
+        name: loggregator-fluentd
+    spec:
+      containers:
+      - name: loggregator-fluentd
+        image: loggregator/fluentd:latest
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: varlog
+          mountPath: /var/log
+        - name: varlibdockercontainers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+        - name: loggregator-tls-certs
+          mountPath: /fluentd/certs
+      - name: loggregator-agent
+        image: "loggregator/agent:latest"
+        env:
+        - name: ROUTER_ADDR
+          value: loggregator-router.default.svc.cluster.local:8082
+        - name: ROUTER_ADDR_WITH_AZ
+          value: loggregator-router.default.svc.cluster.local:8082
+        - name: AGENT_PPROF_PORT
+          value: "6062"
+        - name: AGENT_HEALTH_ENDPOINT_PORT
+          value: "6063"
+        ports:
+        - name: health
+          containerPort: 6063
+        volumeMounts:
+        - name: loggregator-tls-certs
+          mountPath: /srv/agent/certs
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: tmp
+        hostPath:
+          path: /tmp/loggregator-fluentd
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: varlibdockercontainers
+        hostPath:
+          path: /var/lib/docker/containers
+      - name: loggregator-tls-certs
+        secret:
+          secretName: loggregator-tls-certs

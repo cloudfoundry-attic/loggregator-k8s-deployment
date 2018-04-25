@@ -3,6 +3,9 @@
 
 This repo contains the objects required to run loggregator on kubernetes.
 
+**Note**: This project is currently experimental and may change in breaking
+ways.
+
 ### Prerequisites
 
 - A k8s cluster up and running.

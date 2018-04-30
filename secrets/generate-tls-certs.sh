@@ -7,7 +7,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: loggregator-tls-certs
-  namespace: kube-system
+  namespace: loggregator
 type: Opaque
 data:
 '

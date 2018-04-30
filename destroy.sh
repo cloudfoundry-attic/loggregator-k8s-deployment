@@ -9,6 +9,7 @@ function single_yml_config {
         daemonsets/*.yml \
         services/*.yml \
         secrets/*.yml \
+        namespaces/*.yml \
     ; do
         echo ---
         cat "$f";

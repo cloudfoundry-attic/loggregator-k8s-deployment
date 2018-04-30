@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: loggregator-emitter
-  namespace: kube-system
+  namespace: loggregator
 spec:
   replicas: 2
   template:
@@ -20,9 +20,9 @@ spec:
         image: "loggregator/agent:latest"
         env:
         - name: ROUTER_ADDR
-          value: loggregator-router.kube-system.svc.cluster.local:8082
+          value: loggregator-router.loggregator.svc.cluster.local:8082
         - name: ROUTER_ADDR_WITH_AZ
-          value: loggregator-router.kube-system.svc.cluster.local:8082
+          value: loggregator-router.loggregator.svc.cluster.local:8082
         - name: AGENT_PPROF_PORT
           value: "6062"
         - name: AGENT_HEALTH_ENDPOINT_PORT

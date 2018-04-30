@@ -2,18 +2,17 @@
 
 set -e
 
-ls deployments/*.yml | while read line; do
-    kubectl delete -f "$line"
-done
+function single_yml_config {
+    for f in \
+        statefulsets/*.yml \
+        deployments/*.yml \
+        daemonsets/*.yml \
+        services/*.yml \
+        secrets/*.yml \
+    ; do
+        echo ---
+        cat "$f";
+    done
+}
 
-ls daemonsets/*.yml | while read line; do
-    kubectl delete -f "$line"
-done
-
-ls services/*.yml | while read line; do
-    kubectl delete -f "$line"
-done
-
-ls secrets/*.yml | while read line; do
-    kubectl delete -f "$line"
-done
+single_yml_config | kubectl delete -f -

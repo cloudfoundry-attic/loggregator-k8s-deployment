@@ -2,18 +2,17 @@
 
 set -e
 
-ls secrets/*.yml | while read line; do
-    kubectl apply -f "$line"
-done
+function single_yml_config {
+    for f in \
+        secrets/*.yml \
+        services/*.yml \
+        daemonsets/*.yml \
+        deployments/*.yml \
+        statefulsets/*.yml \
+    ; do
+        echo ---
+        cat "$f";
+    done
+}
 
-ls services/*.yml | while read line; do
-    kubectl apply -f "$line"
-done
-
-ls daemonsets/*.yml | while read line; do
-    kubectl apply -f "$line"
-done
-
-ls deployments/*.yml | while read line; do
-    kubectl apply -f "$line"
-done
+single_yml_config | kubectl apply -f -

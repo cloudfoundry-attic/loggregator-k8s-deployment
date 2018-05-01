@@ -5,6 +5,7 @@ set -e
 function single_yml_config {
     for f in \
         namespaces/*.yml \
+        configmaps/*.yml \
         secrets/*.yml \
         services/*.yml \
         daemonsets/*.yml \

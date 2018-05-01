@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: log-cache-scheduler
+  namespace: loggregator
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: log-cache-scheduler
+    spec:
+      volumes:
+      - name: loggregator-tls-certs
+        secret:
+          secretName: loggregator-tls-certs
+      containers:
+      - name: log-cache-scheduler
+        image: "loggregator/log-cache-scheduler:latest"
+        volumeMounts:
+        - name: loggregator-tls-certs
+          mountPath: /srv/certs
+        env:
+        - name: NODE_ADDRS
+          valueFrom:
+            configMapKeyRef:
+              name: log-cache
+              key: NODE_ADDRS
+        # TODO: Figure out the correct value for group reader
+        - name: GROUP_READER_NODE_ADDRS
+          value: log-cache-writes.loggregator.svc.cluster.local:8080

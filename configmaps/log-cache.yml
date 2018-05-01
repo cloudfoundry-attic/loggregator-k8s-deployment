@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: log-cache
+  namespace: loggregator
+data:
+  NODE_ADDRS: log-cache-0.log-cache-headless.loggregator.svc.cluster.local:8080,log-cache-1.log-cache-headless.loggregator.svc.cluster.local:8080,log-cache-2.log-cache-headless.loggregator.svc.cluster.local:8080

@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: log-cache-nozzle
+  namespace: loggregator
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: log-cache-nozzle
+    spec:
+      volumes:
+      - name: loggregator-tls-certs
+        secret:
+          secretName: loggregator-tls-certs
+      containers:
+      - name: log-cache-nozzle
+        image: "loggregator/log-cache-nozzle:latest"
+        volumeMounts:
+        - name: loggregator-tls-certs
+          mountPath: /srv/certs
+        env:
+        - name: LOGS_PROVIDER_ADDR
+          value: loggregator-rlp.loggregator.svc.cluster.local:8082
+        - name: LOG_CACHE_ADDR
+          value: log-cache-writes.loggregator.svc.cluster.local:8080

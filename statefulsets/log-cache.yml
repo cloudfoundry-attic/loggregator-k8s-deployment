@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: log-cache
+  namespace: loggregator
+spec:
+  selector:
+    matchLabels:
+      app: log-cache
+  serviceName: log-cache-headless
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: log-cache
+    spec:
+      volumes:
+      - name: loggregator-tls-certs
+        secret:
+          secretName: loggregator-tls-certs
+      - name: env
+        emptyDir: {}
+      containers:
+      - name: log-cache-gateway
+        image: loggregator/log-cache-gateway
+        env:
+        - name: LOG_CACHE_ADDR
+          value: localhost:8080
+        - name: GROUP_READER_ADDR
+          value: localhost:8080
+        ports:
+        - containerPort: 8081
+          name: gateway
+        volumeMounts:
+        - name: loggregator-tls-certs
+          mountPath: /srv/certs
+      - name: log-cache
+        image: loggregator/log-cache
+        env:
+        - name: NODE_ADDRS
+          valueFrom:
+            configMapKeyRef:
+              name: log-cache
+              key: NODE_ADDRS
+        ports:
+        - containerPort: 8080
+          name: log-cache
+        volumeMounts:
+        - name: loggregator-tls-certs
+          mountPath: /srv/certs
+        - name: env
+          mountPath: /srv/conf.d
+      initContainers:
+      # Setup NODE_INDEX env var for log-cache
+      - name: init-log-cache
+        image: alpine
+        command: ["sh", "-c", "echo export NODE_INDEX=$(echo -n $HOSTNAME | tail -c 1) > /srv/conf.d/env"]
+        volumeMounts:
+        - name: env
+          mountPath: /srv/conf.d

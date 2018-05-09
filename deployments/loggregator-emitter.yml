@@ -15,7 +15,7 @@ spec:
         image: "loggregator/emitter:latest"
         volumeMounts:
         - name: loggregator-tls-certs
-          mountPath: /srv/emitter/certs
+          mountPath: /srv/certs
       - name: loggregator-agent
         image: "loggregator/agent:latest"
         env:
@@ -32,7 +32,7 @@ spec:
           containerPort: 6063
         volumeMounts:
         - name: loggregator-tls-certs
-          mountPath: /srv/agent/certs
+          mountPath: /srv/certs
       volumes:
       - name: loggregator-tls-certs
         secret:

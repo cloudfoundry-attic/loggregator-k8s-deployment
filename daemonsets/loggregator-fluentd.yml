@@ -50,7 +50,7 @@ spec:
           containerPort: 6063
         volumeMounts:
         - name: loggregator-tls-certs
-          mountPath: /srv/agent/certs
+          mountPath: /srv/certs
       terminationGracePeriodSeconds: 30
       volumes:
       - name: tmp

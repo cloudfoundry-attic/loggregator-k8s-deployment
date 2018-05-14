@@ -17,4 +17,4 @@ function single_yml_config {
     done
 }
 
-single_yml_config | kubectl delete --now --ignore-not-found -f -
+single_yml_config | kubectl delete --now --cascade=false --ignore-not-found -f -

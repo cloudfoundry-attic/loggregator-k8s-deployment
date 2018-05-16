@@ -37,6 +37,8 @@ spec:
       - name: log-cache
         image: loggregator/log-cache
         env:
+        - name: HEALTH_ADDR
+          value: ":6060"
         - name: NODE_ADDRS
           valueFrom:
             configMapKeyRef:
@@ -45,6 +47,8 @@ spec:
         ports:
         - containerPort: 8080
           name: log-cache
+        - containerPort: 6060
+          name: health
         volumeMounts:
         - name: loggregator-tls-certs
           mountPath: /srv/certs

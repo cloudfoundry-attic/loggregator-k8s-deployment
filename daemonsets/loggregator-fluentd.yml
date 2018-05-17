@@ -7,6 +7,8 @@ spec:
   selector:
     matchLabels:
       name: loggregator-fluentd
+  updateStrategy:
+    type: RollingUpdate
   template:
     metadata:
       labels:

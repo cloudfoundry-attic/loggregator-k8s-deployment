@@ -11,6 +11,7 @@ function single_yml_config {
         daemonsets/*.yml \
         deployments/*.yml \
         statefulsets/*.yml \
+        roles/*.yml \
     ; do
         echo ---
         cat "$f";

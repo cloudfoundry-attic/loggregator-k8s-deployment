@@ -12,7 +12,8 @@ spec:
     spec:
       containers:
       - name: loggregator-rlp
-        image: "loggregator/rlp:latest"
+        image: loggregator/rlp:latest
+        imagePullPolicy: Always
         env:
         - name: ROUTER_ADDRS
           # TODO: this needs all instances of router, not just a service lb
@@ -26,7 +27,8 @@ spec:
         - name: loggregator-tls-certs
           mountPath: /srv/certs
       - name: loggregator-agent
-        image: "loggregator/agent:latest"
+        image: loggregator/agent:latest
+        imagePullPolicy: Always
         env:
         - name: ROUTER_ADDR
           value: loggregator-router.loggregator.svc.cluster.local:8082

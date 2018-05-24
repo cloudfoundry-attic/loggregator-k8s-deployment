@@ -22,7 +22,8 @@ spec:
         emptyDir: {}
       containers:
       - name: log-cache-gateway
-        image: loggregator/log-cache-gateway
+        image: loggregator/log-cache-gateway:latest
+        imagePullPolicy: Always
         env:
         - name: LOG_CACHE_ADDR
           value: localhost:8080
@@ -36,6 +37,7 @@ spec:
           mountPath: /srv/certs
       - name: log-cache
         image: loggregator/log-cache
+        imagePullPolicy: Always
         env:
         - name: HEALTH_ADDR
           value: ":6060"
@@ -58,6 +60,7 @@ spec:
       # Setup NODE_INDEX env var for log-cache
       - name: init-log-cache
         image: alpine
+        imagePullPolicy: Always
         command: ["sh", "-c", "echo export NODE_INDEX=$(echo -n $HOSTNAME | tail -c 1) > /srv/conf.d/env"]
         volumeMounts:
         - name: env

@@ -12,7 +12,8 @@ spec:
     spec:
       containers:
       - name: loggregator-router
-        image: "loggregator/router:latest"
+        image: loggregator/router:latest
+        imagePullPolicy: Always
         ports:
         - name: api
           containerPort: 8082
@@ -22,7 +23,8 @@ spec:
         - name: loggregator-tls-certs
           mountPath: /srv/certs
       - name: loggregator-agent
-        image: "loggregator/agent:latest"
+        image: loggregator/agent:latest
+        imagePullPolicy: Always
         env:
         - name: ROUTER_ADDR
           value: localhost:8082

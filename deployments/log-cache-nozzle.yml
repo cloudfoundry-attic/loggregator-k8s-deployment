@@ -16,7 +16,8 @@ spec:
           secretName: loggregator-tls-certs
       containers:
       - name: log-cache-nozzle
-        image: "loggregator/log-cache-nozzle:latest"
+        image: loggregator/log-cache-nozzle:latest
+        imagePullPolicy: Always
         volumeMounts:
         - name: loggregator-tls-certs
           mountPath: /srv/certs

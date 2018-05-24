@@ -17,6 +17,7 @@ spec:
       containers:
       - name: loggregator-fluentd
         image: loggregator/fluentd:latest
+        imagePullPolicy: Always
         resources:
           limits:
             memory: 200Mi
@@ -38,7 +39,8 @@ spec:
         - name: loggregator-tls-certs
           mountPath: /fluentd/certs
       - name: loggregator-agent
-        image: "loggregator/agent:latest"
+        image: loggregator/agent:latest
+        imagePullPolicy: Always
         env:
         - name: ROUTER_ADDR
           value: loggregator-router.loggregator.svc.cluster.local:8082

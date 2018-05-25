@@ -9,7 +9,8 @@ ways.
 ### Prerequisites
 
 - A k8s cluster up and running.
-- `kubectl` installed locally and configured to target your k8s cluster.
+- `kubectl` installed locally and configured to target your k8s cluster
+  (minimum supported version of kubernetes API and CLI: `1.10`).
 - `docker` installed locally and configured to target a `dockerd` for running a
   certificate generation container.
 

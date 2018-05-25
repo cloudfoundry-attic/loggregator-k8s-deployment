@@ -39,3 +39,14 @@ The following script will delete all the objects from your cluster:
 ```bash
 ./destroy.sh
 ```
+
+### Accessing logs via LogCache
+
+1. Target the log-cache-reads service:  
+      
+   ```
+   export LOG_CACHE_ADDR="$(kubectl get service log-cache-reads -o jsonpath='{$.status.loadBalancer.ingress[0].ip}')"
+   ```
+1. [Install the stand alone log-cache-cli][log-cache-cli].
+
+[log-cache-cli]: https://github.com/cloudfoundry/log-cache-cli#stand-alone-cli

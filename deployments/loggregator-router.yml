@@ -22,6 +22,7 @@ spec:
         volumeMounts:
         - name: loggregator-tls-certs
           mountPath: /srv/certs
+          readOnly: true
       - name: loggregator-agent
         image: loggregator/agent:latest
         imagePullPolicy: Always
@@ -40,6 +41,7 @@ spec:
         volumeMounts:
         - name: loggregator-tls-certs
           mountPath: /srv/certs
+          readOnly: true
       volumes:
       - name: loggregator-tls-certs
         secret:

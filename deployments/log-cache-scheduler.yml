@@ -21,6 +21,7 @@ spec:
         volumeMounts:
         - name: loggregator-tls-certs
           mountPath: /srv/certs
+          readOnly: true
         env:
         - name: NODE_ADDRS
           valueFrom:

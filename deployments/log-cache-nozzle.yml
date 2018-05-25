@@ -21,6 +21,7 @@ spec:
         volumeMounts:
         - name: loggregator-tls-certs
           mountPath: /srv/certs
+          readOnly: true
         env:
         - name: LOGS_PROVIDER_ADDR
           value: loggregator-rlp.loggregator.svc.cluster.local:8082

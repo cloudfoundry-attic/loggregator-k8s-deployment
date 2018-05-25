@@ -35,6 +35,7 @@ spec:
         volumeMounts:
         - name: loggregator-tls-certs
           mountPath: /srv/certs
+          readOnly: true
       - name: log-cache
         image: loggregator/log-cache
         imagePullPolicy: Always
@@ -54,6 +55,7 @@ spec:
         volumeMounts:
         - name: loggregator-tls-certs
           mountPath: /srv/certs
+          readOnly: true
         - name: env
           mountPath: /srv/conf.d
       initContainers:

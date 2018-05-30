@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: log-cache-scheduler
-  namespace: loggregator
+  namespace: oratos
 spec:
   replicas: 1
   template:
@@ -30,4 +30,4 @@ spec:
               key: NODE_ADDRS
         # TODO: Figure out the correct value for group reader
         - name: GROUP_READER_NODE_ADDRS
-          value: log-cache-writes.loggregator.svc.cluster.local:8080
+          value: log-cache-writes.oratos.svc.cluster.local:8080

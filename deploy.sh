@@ -23,13 +23,13 @@ function patch_objects {
     # for instance if a configmap or secret value is changed and needs to be
     # reloaded from disk or env
     patch='{"spec": {"template": {"metadata": {"labels": {"randomversion": "'$RANDOM'"}}}}}'
-    kubectl patch statefulset log-cache --namespace loggregator --patch "$patch"
-    kubectl patch deployment log-cache-nozzle --namespace loggregator --patch "$patch"
-    kubectl patch deployment log-cache-scheduler --namespace loggregator --patch "$patch"
-    kubectl patch deployment loggregator-emitter --namespace loggregator --patch "$patch"
-    kubectl patch deployment loggregator-rlp --namespace loggregator --patch "$patch"
-    kubectl patch deployment loggregator-router --namespace loggregator --patch "$patch"
-    kubectl patch daemonset loggregator-fluentd --namespace loggregator --patch "$patch"
+    kubectl patch statefulset log-cache --namespace oratos --patch "$patch"
+    kubectl patch deployment log-cache-nozzle --namespace oratos --patch "$patch"
+    kubectl patch deployment log-cache-scheduler --namespace oratos --patch "$patch"
+    kubectl patch deployment loggregator-emitter --namespace oratos --patch "$patch"
+    kubectl patch deployment loggregator-rlp --namespace oratos --patch "$patch"
+    kubectl patch deployment loggregator-router --namespace oratos --patch "$patch"
+    kubectl patch daemonset loggregator-fluentd --namespace oratos --patch "$patch"
 }
 
 single_yml_config | kubectl apply -f -

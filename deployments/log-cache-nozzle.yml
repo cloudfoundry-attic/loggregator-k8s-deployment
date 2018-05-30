@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: log-cache-nozzle
-  namespace: loggregator
+  namespace: oratos
 spec:
   replicas: 2
   template:
@@ -24,6 +24,6 @@ spec:
           readOnly: true
         env:
         - name: LOGS_PROVIDER_ADDR
-          value: loggregator-rlp.loggregator.svc.cluster.local:8082
+          value: loggregator-rlp.oratos.svc.cluster.local:8082
         - name: LOG_CACHE_ADDR
-          value: log-cache-writes.loggregator.svc.cluster.local:8080
+          value: log-cache-writes.oratos.svc.cluster.local:8080

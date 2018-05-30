@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: loggregator-emitter
-  namespace: loggregator
+  namespace: oratos
 spec:
   replicas: 2
   template:
@@ -25,9 +25,9 @@ spec:
         - name: AGENT_METRIC_SOURCE_ID
           value: loggregator/deployment/loggregator-emitter
         - name: ROUTER_ADDR
-          value: loggregator-router.loggregator.svc.cluster.local:8082
+          value: loggregator-router.oratos.svc.cluster.local:8082
         - name: ROUTER_ADDR_WITH_AZ
-          value: loggregator-router.loggregator.svc.cluster.local:8082
+          value: loggregator-router.oratos.svc.cluster.local:8082
         - name: AGENT_PPROF_PORT
           value: "6062"
         - name: AGENT_HEALTH_ENDPOINT_PORT

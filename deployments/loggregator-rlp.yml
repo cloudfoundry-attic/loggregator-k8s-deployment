@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: loggregator-rlp
-  namespace: loggregator
+  namespace: oratos
 spec:
   replicas: 1
   template:
@@ -19,7 +19,7 @@ spec:
           value: loggregator/deployment/loggregator-rlp
         - name: ROUTER_ADDRS
           # TODO: this needs all instances of router, not just a service lb
-          value: loggregator-router.loggregator.svc.cluster.local:8082
+          value: loggregator-router.oratos.svc.cluster.local:8082
         ports:
         - name: api
           containerPort: 8082
@@ -36,9 +36,9 @@ spec:
         - name: AGENT_METRIC_SOURCE_ID
           value: loggregator/deployment/loggregator-rlp
         - name: ROUTER_ADDR
-          value: loggregator-router.loggregator.svc.cluster.local:8082
+          value: loggregator-router.oratos.svc.cluster.local:8082
         - name: ROUTER_ADDR_WITH_AZ
-          value: loggregator-router.loggregator.svc.cluster.local:8082
+          value: loggregator-router.oratos.svc.cluster.local:8082
         - name: AGENT_PPROF_PORT
           value: "6062"
         - name: AGENT_HEALTH_ENDPOINT_PORT

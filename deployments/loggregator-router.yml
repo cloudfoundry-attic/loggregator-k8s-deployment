@@ -14,6 +14,9 @@ spec:
       - name: loggregator-router
         image: loggregator/router:latest
         imagePullPolicy: Always
+        env:
+        - name: ROUTER_METRIC_SOURCE_ID
+          value: loggregator/deployment/loggregator-router
         ports:
         - name: api
           containerPort: 8082
@@ -27,6 +30,8 @@ spec:
         image: loggregator/agent:latest
         imagePullPolicy: Always
         env:
+        - name: AGENT_METRIC_SOURCE_ID
+          value: loggregator/deployment/loggregator-router
         - name: ROUTER_ADDR
           value: localhost:8082
         - name: ROUTER_ADDR_WITH_AZ

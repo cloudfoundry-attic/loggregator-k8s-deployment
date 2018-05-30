@@ -44,7 +44,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: AGENT_METRIC_SOURCE_ID
-          value: loggregator/daemonset/loggregator-fluentd
+          value: oratos/daemonset/loggregator-fluentd
         - name: ROUTER_ADDR
           value: loggregator-router.oratos.svc.cluster.local:8082
         - name: ROUTER_ADDR_WITH_AZ

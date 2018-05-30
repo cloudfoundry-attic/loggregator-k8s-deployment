@@ -14,6 +14,9 @@ spec:
       - name: loggregator-emitter
         image: loggregator/emitter:latest
         imagePullPolicy: Always
+        env:
+        - name: SOURCE_ID
+          value: oratos/deployment/loggregator-emitter
         volumeMounts:
         - name: loggregator-tls-certs
           mountPath: /srv/certs
@@ -23,7 +26,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: AGENT_METRIC_SOURCE_ID
-          value: loggregator/deployment/loggregator-emitter
+          value: oratos/deployment/loggregator-emitter
         - name: ROUTER_ADDR
           value: loggregator-router.oratos.svc.cluster.local:8082
         - name: ROUTER_ADDR_WITH_AZ

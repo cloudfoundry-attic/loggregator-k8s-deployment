@@ -45,12 +45,12 @@ The following script will delete all the objects from your cluster:
 
 1. Target Log Cache via the loadbalancer service:
    ```
-   export LOG_CACHE_ADDR="http://$(kubectl get service log-cache-reads -o jsonpath='{$.status.loadBalancer.ingress[0].ip}' -n loggregator):8081"
+   export LOG_CACHE_ADDR="http://$(kubectl get service log-cache-reads -o jsonpath='{$.status.loadBalancer.ingress[0].ip}' -n oratos):8081"
    ```
    
    or via Minikube:
    ```
-   export LOG_CACHE_ADDR="$(minikube service -n loggregator log-cache-reads --url)"
+   export LOG_CACHE_ADDR="$(minikube service -n oratos log-cache-reads --url)"
    ```
 1. [Install the stand alone log-cache-cli][log-cache-cli].
 

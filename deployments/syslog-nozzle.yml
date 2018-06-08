@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: syslog-nozzle
+  namespace: oratos
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: syslog-nozzle
+    spec:
+      volumes:
+      - name: loggregator-tls-certs
+        secret:
+          secretName: loggregator-tls-certs
+      containers:
+      - name: syslog-nozzle
+        image: loggregator/syslog-nozzle:latest
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: loggregator-tls-certs
+          mountPath: /srv/certs
+          readOnly: true
+        env:
+        - name: LOGS_PROVIDER_ADDR
+          value: loggregator-rlp.oratos.svc.cluster.local:8082
+        - name: SYSLOG_DESTINATION
+          value: logs5.papertrailapp.com:34100

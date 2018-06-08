@@ -25,6 +25,7 @@ function patch_objects {
     patch='{"spec": {"template": {"metadata": {"labels": {"randomversion": "'$RANDOM'"}}}}}'
     kubectl patch statefulset log-cache --namespace oratos --patch "$patch"
     kubectl patch deployment log-cache-nozzle --namespace oratos --patch "$patch"
+    kubectl patch deployment syslog-nozzle --namespace oratos --patch "$patch"
     kubectl patch deployment log-cache-scheduler --namespace oratos --patch "$patch"
     kubectl patch deployment loggregator-emitter --namespace oratos --patch "$patch"
     kubectl patch deployment loggregator-rlp --namespace oratos --patch "$patch"

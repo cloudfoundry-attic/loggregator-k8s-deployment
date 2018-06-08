@@ -25,5 +25,5 @@ spec:
         env:
         - name: LOGS_PROVIDER_ADDR
           value: loggregator-rlp.oratos.svc.cluster.local:8082
-        - name: SYSLOG_DESTINATION
-          value: logs5.papertrailapp.com:34100
+        # - name: SYSLOG_DESTINATION
+        #   value: some-syslog-endpoint

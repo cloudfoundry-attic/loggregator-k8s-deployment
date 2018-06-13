@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: loggregator-fluentd
-        image: loggregator/fluentd:latest
+        image: loggregator/fluentd
         imagePullPolicy: Always
         resources:
           limits:
@@ -40,7 +40,7 @@ spec:
           mountPath: /fluentd/certs
           readOnly: true
       - name: loggregator-agent
-        image: loggregator/agent:latest
+        image: loggregator/agent
         imagePullPolicy: Always
         env:
         - name: AGENT_METRIC_SOURCE_ID

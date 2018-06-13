@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: loggregator-router
-        image: loggregator/router:latest
+        image: loggregator/router
         imagePullPolicy: Always
         env:
         - name: ROUTER_METRIC_SOURCE_ID
@@ -27,7 +27,7 @@ spec:
           mountPath: /srv/certs
           readOnly: true
       - name: loggregator-agent
-        image: loggregator/agent:latest
+        image: loggregator/agent
         imagePullPolicy: Always
         env:
         - name: AGENT_METRIC_SOURCE_ID

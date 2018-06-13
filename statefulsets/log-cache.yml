@@ -22,7 +22,7 @@ spec:
         emptyDir: {}
       containers:
       - name: log-cache-gateway
-        image: loggregator/log-cache-gateway:latest
+        image: loggregator/log-cache-gateway
         imagePullPolicy: Always
         env:
         - name: LOG_CACHE_ADDR

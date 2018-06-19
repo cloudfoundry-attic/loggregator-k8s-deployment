@@ -41,13 +41,45 @@ The following script will delete all the objects from your cluster:
 ./destroy.sh
 ```
 
+### Configuring the syslog drains for the Syslog Nozzle.
+
+The kubernetes deployment manifest for syslog nozzle can be found under
+`optional/deployments/syslog-nozzle.yml`.
+
+Configure the syslog nozzle with the `DRAINS` environment variable.
+- In order to forward logs for a specific namespace, specify the `namespace`
+property.
+- In order to forward all logs of the kubernetes cluster, set `all: true`.
+
+This is an example,
+
+```yaml
+- name: DRAINS
+  value: |
+    [
+      {
+        "namespace": "kube-system",
+        "url": "example.com:1234"
+      },
+      {
+        "all": true,
+        "url": "example.com:4567"
+      }
+    ]
+```
+
+Apply the config,
+```
+kubectl apply -f optional/deployments/syslog-nozzle.yml
+```
+
 ### Accessing logs via LogCache
 
 1. Target Log Cache via the loadbalancer service:
    ```
    export LOG_CACHE_ADDR="http://$(kubectl get service log-cache-reads -o jsonpath='{$.status.loadBalancer.ingress[0].ip}' -n oratos):8081"
    ```
-   
+
    or via Minikube:
    ```
    export LOG_CACHE_ADDR="$(minikube service -n oratos log-cache-reads --url)"

@@ -11,10 +11,11 @@ function single_yml_config {
         secrets/*.yml \
         configmaps/*.yml \
         namespaces/*.yml \
+        "$@" \
     ; do
         echo ---
         cat "$f";
     done
 }
 
-single_yml_config | kubectl delete --now --cascade=false --ignore-not-found -f -
+single_yml_config "$@" | kubectl delete --now --cascade=false --ignore-not-found -f -

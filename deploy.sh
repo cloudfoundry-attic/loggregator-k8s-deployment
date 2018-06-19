@@ -12,6 +12,7 @@ function single_yml_config {
         deployments/*.yml \
         statefulsets/*.yml \
         roles/*.yml \
+        "$@" \
     ; do
         echo ---
         cat "$f";
@@ -25,13 +26,19 @@ function patch_objects {
     patch='{"spec": {"template": {"metadata": {"labels": {"randomversion": "'$RANDOM'"}}}}}'
     kubectl patch statefulset log-cache --namespace oratos --patch "$patch"
     kubectl patch deployment log-cache-nozzle --namespace oratos --patch "$patch"
-    kubectl patch deployment syslog-nozzle --namespace oratos --patch "$patch"
     kubectl patch deployment log-cache-scheduler --namespace oratos --patch "$patch"
-    kubectl patch deployment loggregator-emitter --namespace oratos --patch "$patch"
     kubectl patch deployment loggregator-rlp --namespace oratos --patch "$patch"
     kubectl patch deployment loggregator-router --namespace oratos --patch "$patch"
     kubectl patch daemonset loggregator-fluentd --namespace oratos --patch "$patch"
+
+    # optinal features
+    if kubectl get deployment syslog-nozzle > /dev/null 2>&1; then
+        kubectl patch deployment syslog-nozzle --namespace oratos --patch "$patch"
+    fi
+    if kubectl get deployment loggregator-emitter > /dev/null 2>&1; then
+        kubectl patch deployment loggregator-emitter --namespace oratos --patch "$patch"
+    fi
 }
 
-single_yml_config | kubectl apply -f -
+single_yml_config "$@" | kubectl apply -f -
 patch_objects

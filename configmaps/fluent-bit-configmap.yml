@@ -41,7 +41,10 @@ data:
         Merge_Log           On
         K8S-Logging.Parser  On
 
-  #TODO Configure output plugin
+    [OUTPUT]
+        Name file
+        Match *
+        Path output.txt
 
   parsers.conf: |
     [PARSER]

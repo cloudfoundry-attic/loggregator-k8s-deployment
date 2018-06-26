@@ -25,3 +25,15 @@ spec:
         env:
         - name: LOGS_PROVIDER_ADDR
           value: loggregator-rlp.oratos.svc.cluster.local:8082
+        - name: DRAINS
+          value: |
+            [
+              {
+                "namespace": "ns1",
+                "url": "example.com:1234"
+              },
+              {
+                "namespace": "ns2",
+                "url": "example.com:1235"
+              }
+            ]

@@ -1,5 +1,12 @@
 
-# Loggregator Kubernetes Deployment
+# Oratos Kubernetes Deployment
+
+Oratos is a Greek based name positioned to be part of the Kubernetes community,
+like other names such as Istio and Prometheus.
+
+ορατός • (oratós) m (_feminine_ ορατή, _neuter_ ορατό)
+	visible, in sight, seen
+
 
 This repo contains the objects required to run loggregator on kubernetes.
 
